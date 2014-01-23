@@ -1,0 +1,12 @@
+{
+  "name": "glsl",
+  "title": "GLSL",
+  "description": "GLSLのシンタックスハイライト",
+  "homepage": "",
+  "author": "sapphire_al2o3",
+  "license": "MIT",
+  "engines": {
+    "brackets": ">=0.30.0"
+  },
+  "version": "1.0.0"
+}
