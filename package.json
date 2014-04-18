@@ -2,7 +2,7 @@
   "name": "glsl",
   "title": "GLSL",
   "description": "GLSLのシンタックスハイライト",
-  "homepage": "https://github.com/sapphire-al2o3/Brackets-GLSL/",
+  "homepage": "https://github.com/sapphire-al2o3/Brackets-GLSL",
   "author": "sapphire_al2o3",
   "license": "MIT",
   "engines": {
