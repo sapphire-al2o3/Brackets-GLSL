@@ -1,5 +1,8 @@
+/*global define, brackets*/
 define(function (require, exports, module) {
 	'use strict';
+	
+	var CodeMirror = brackets.getModule("thirdparty/CodeMirror2/lib/codemirror");
 	
 	CodeMirror.defineMIME("text/x-brackets-html", {
 		"name": "htmlmixed",
