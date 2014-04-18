@@ -7,7 +7,7 @@ Brackets-GLSL
 
 拡張機能マネージャのURLからインストールから
 
- https://github.com/sapphire-al2o3/Brackets-GLSL/
+ https://github.com/sapphire-al2o3/Brackets-GLSL
 
 を入力してインストールする。
 
