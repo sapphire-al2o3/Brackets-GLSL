@@ -1,7 +1,7 @@
 Brackets-GLSL
 =============
 
-[Brackets](http://brackets.io/)でHTMLに含まれる頂点シェーダ、フラグメントシェーダ(`<script type="x-shader/x-vertex"><script type="x-shader/x-fragment">`)を色分け表示します。
+[Brackets](http://brackets.io/)でHTMLに含まれる頂点シェーダ(`<script type="x-shader/x-vertex">`)、フラグメントシェーダ(`<script type="x-shader/x-fragment">`)を色分け表示します。
 
 ### インストール方法
 
