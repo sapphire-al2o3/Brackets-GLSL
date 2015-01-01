@@ -82,15 +82,18 @@
 	{"name": "out"},
 	{"name": "inout"}
 ],
-"vars": [
+"vertVars": [
 	{"name": "gl_Position"},
-	{"name": "gl_PointSize"},
+	{"name": "gl_PointSize"}
+],
+"fragVars": [
 	{"name": "gl_FragCoord"},
 	{"name": "gl_FrontFacing"},
 	{"name": "gl_PointCoord"},
 	{"name": "gl_FragColor"},
-	{"name": "gl_FragData"},
-	
+	{"name": "gl_FragData"}
+],
+"const": [
 	{"name": "gl_MaxVertexAttribs"},
 	{"name": "gl_MaxVertexUniformVectors"},
 	{"name": "gl_MaxVaryingVectors"},

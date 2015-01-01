@@ -24,24 +24,22 @@ define(function (require, exports, module) {
 	function add(list, words, token) {
 		for(var i = 0, n = words.length; i < n; i++) {
 			if(words[i].name.indexOf(token) >= 0) {
-				list.push($('<span>').text(words[i].name));
+				list.push($('<span>').html(words[i].name.replace(token, '<span style="font-weight: bold;">' + token + '</span>')));
 			}
 		}
 	}
 	
 	function GLSLHints() {
-		this.input = [];
 	}
 	
 	GLSLHints.prototype.hasHints = function(editor, implicitChar) {
 		if(!implicitChar || /[\w#_]/.test(implicitChar)) {
 			var cursor = editor.getCursorPos(),
 				token = editor._codeMirror.getTokenAt(cursor);
-			
 			if (token.type !== 'comment') {
 				this.editor = editor;
 				this.token = token;
-				this.isFragment = token.state.localMode.helperType === 'x-shader/x-fragment';
+//				this.isFragment = token.state.localMode.helperType === 'x-shader/x-fragment';
 				this.pre = implicitChar === '#' || token.string[0] === '#';
 				return true;
 			}
@@ -67,8 +65,13 @@ define(function (require, exports, module) {
 		if(this.pre) {
 			add(hintList, glslWords.pres, str);
 		} else {
+//			if(this.isFragment) {
+				add(hintList, glslWords.fragVars, str);
+//			} else {
+				add(hintList, glslWords.vertVars, str);
+//			}
 			add(hintList, glslWords.types, str);
-			add(hintList, glslWords.vars, str);
+			add(hintList, glslWords.const, str);
 			add(hintList, glslWords.funcs, str);
 		}
 		
