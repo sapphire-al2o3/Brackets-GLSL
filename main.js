@@ -16,8 +16,14 @@ define(function (require, exports, module) {
 	
 	var mode = CodeMirror.resolveMode('x-shader/x-fragment');
 	delete mode.builtin['smootstep'];
+	delete mode.keywords['sampler2DShadowconst'];
 	mode.builtin['smoothstep'] = true;
 	mode.atoms['gl_PointCoord'] = true;
+	mode.keywords['precision'] = true;
+	mode.keywords['highp'] = true;
+	mode.keywords['mediump'] = true;
+	mode.keywords['lowp'] = true;
+	mode.keywords['const'] = true;
 	
 	function GLSLMode(helperType) {
 		this.helperType = helperType;
