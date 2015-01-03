@@ -14,6 +14,23 @@ define(function (require, exports, module) {
 		{ "matches": /x-shader\/x-vertex/i, 'mode': "x-shader/x-vertex" }
 	);
 	
+	var mode = CodeMirror.resolveMode('x-shader/x-fragment');
+	delete mode.builtin['smootstep'];
+	mode.builtin['smoothstep'] = true;
+	mode.atoms['gl_PointCoord'] = true;
+	
+	function GLSLMode(helperType) {
+		this.helperType = helperType;
+	}
+	
+	GLSLMode.prototype = mode;
+	
+	var vertexMode = new GLSLMode('x-shader/x-vertex'),
+		fragmentMode = new GLSLMode('x-shader/x-fragment');
+	
+	CodeMirror.defineMIME(vertexMode.helperType, vertexMode);
+	CodeMirror.defineMIME(fragmentMode.helperType, fragmentMode);
+	
 	LanguageManager.defineLanguage('clike', {
 		name: 'clike',
 		mode: 'clike',
@@ -24,7 +41,10 @@ define(function (require, exports, module) {
 	function add(list, words, token) {
 		for(var i = 0, n = words.length; i < n; i++) {
 			if(words[i].name.indexOf(token) >= 0) {
-				list.push($('<span>').html(words[i].name.replace(token, '<span style="font-weight: bold;">' + token + '</span>')));
+				var $hint = $('<span>');
+				$hint.addClass('brackets-js-hints');
+				$hint.data(words[i].name);
+				list.push($hint.html(words[i].name.replace(token, '<span style="font-weight: 500;">' + token + '</span>')));
 			}
 		}
 	}
@@ -39,7 +59,7 @@ define(function (require, exports, module) {
 			if (token.type !== 'comment') {
 				this.editor = editor;
 				this.token = token;
-//				this.isFragment = token.state.localMode.helperType === 'x-shader/x-fragment';
+				this.isFragment = token.state.localMode.helperType === 'x-shader/x-fragment';
 				this.pre = implicitChar === '#' || token.string[0] === '#';
 				return true;
 			}
@@ -65,11 +85,11 @@ define(function (require, exports, module) {
 		if(this.pre) {
 			add(hintList, glslWords.pres, str);
 		} else {
-//			if(this.isFragment) {
+			if(this.isFragment) {
 				add(hintList, glslWords.fragVars, str);
-//			} else {
+			} else {
 				add(hintList, glslWords.vertVars, str);
-//			}
+			}
 			add(hintList, glslWords.types, str);
 			add(hintList, glslWords.const, str);
 			add(hintList, glslWords.funcs, str);
