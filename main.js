@@ -44,13 +44,15 @@ define(function (require, exports, module) {
 		lineComment: ['//']
 	});
 
-	function add(list, words, token) {
+	function add(list, words, token, filter) {
 		for(var i = 0, n = words.length; i < n; i++) {
-			if(words[i].name.indexOf(token) >= 0) {
-				var $hint = $('<span>');
-				$hint.addClass('brackets-js-hints');
-				$hint.data(words[i].name);
-				list.push($hint.html(words[i].name.replace(token, '<span style="font-weight: 500;">' + token + '</span>')));
+			if(!words[i].filter || words[i].filter === filter) {
+				if(words[i].name.indexOf(token) >= 0) {
+					var $hint = $('<span>');
+					$hint.addClass('brackets-js-hints');
+					$hint.data(words[i].name);
+					list.push($hint.html(words[i].name.replace(token, '<span style="font-weight: 500;">' + token + '</span>')));
+				}
 			}
 		}
 	}
@@ -86,19 +88,16 @@ define(function (require, exports, module) {
 			return null;
 		}
 		
-		var str = token.string.slice(0, cursor.ch - token.start);
+		var str = token.string.slice(0, cursor.ch - token.start),
+			filter = this.isFragment ? "frag" : 'vert';
 		
 		if(this.pre) {
-			add(hintList, glslWords.pres, str);
+			add(hintList, glslWords.pres, str, filter);
 		} else {
-			if(this.isFragment) {
-				add(hintList, glslWords.fragVars, str);
-			} else {
-				add(hintList, glslWords.vertVars, str);
-			}
-			add(hintList, glslWords.types, str);
-			add(hintList, glslWords.const, str);
-			add(hintList, glslWords.funcs, str);
+			add(hintList, glslWords.variables, str, filter);
+			add(hintList, glslWords.types, str, filter);
+			add(hintList, glslWords.constants, str, filter);
+			add(hintList, glslWords.funcs, str, filter);
 		}
 		
 		return {

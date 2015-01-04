@@ -22,10 +22,10 @@
 	{"name": "mod"},
 	{"name": "min"},
 	{"name": "max"},
-	{"name": "clamp"},
-	{"name": "mix"},
-	{"name": "step"},
-	{"name": "smoothstep"},
+	{"name": "clamp", "def": "T clamp(T x, T minVal, T maxVal)"},
+	{"name": "mix", "def": "T mix(T x, T y, T a)"},
+	{"name": "step", "def": "T step(T edge, T x)"},
+	{"name": "smoothstep", "def": "T smoothstep(T edge0, T edge1, T x)"},
 	{"name": "length"},
 	{"name": "distance"},
 	{"name": "dot"},
@@ -44,9 +44,9 @@
 	{"name": "any"},
 	{"name": "all"},
 	{"name": "not"},
-	{"name": "texture2DLod"},
-	{"name": "texture2DprojLod"},
-	{"name": "textureCubeLod"},
+	{"name": "texture2DLod", "filter": "vert"},
+	{"name": "texture2DprojLod", "filter": "vert"},
+	{"name": "textureCubeLod", "filter": "vert"},
 	{"name": "texture2D"},
 	{"name": "texture2DProj"},
 	{"name": "textureCube"}
@@ -72,6 +72,7 @@
 	{"name": "sampleCube"},
 	{"name": "struct"},
 	
+	{"name": "precision"},
 	{"name": "const"},
 	{"name": "attribute"},
 	{"name": "uniform"},
@@ -82,18 +83,16 @@
 	{"name": "out"},
 	{"name": "inout"}
 ],
-"vertVars": [
-	{"name": "gl_Position"},
-	{"name": "gl_PointSize"}
+"variables": [
+	{"name": "gl_Position", "filter": "vert"},
+	{"name": "gl_PointSize", "filter": "vert"},
+	{"name": "gl_FragCoord", "filter": "frag"},
+	{"name": "gl_FrontFacing", "filter": "frag"},
+	{"name": "gl_PointCoord", "filter": "frag"},
+	{"name": "gl_FragColor", "filter": "frag"},
+	{"name": "gl_FragData", "filter": "frag"}
 ],
-"fragVars": [
-	{"name": "gl_FragCoord"},
-	{"name": "gl_FrontFacing"},
-	{"name": "gl_PointCoord"},
-	{"name": "gl_FragColor"},
-	{"name": "gl_FragData"}
-],
-"const": [
+"constants": [
 	{"name": "gl_MaxVertexAttribs"},
 	{"name": "gl_MaxVertexUniformVectors"},
 	{"name": "gl_MaxVaryingVectors"},
@@ -118,5 +117,11 @@
 	{"name": "#extension"},
 	{"name": "#version"},
 	{"name": "#line"}
+],
+"macro": [
+	{"name": "__LINE__"},
+	{"name": "__VERSION__"},
+	{"name": "GL_ES"},
+	{"name": "GL_FRAGMENT_QRECISION_HIGH"}
 ]
 }
