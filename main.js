@@ -63,12 +63,18 @@ define(function (require, exports, module) {
 	GLSLHints.prototype.hasHints = function(editor, implicitChar) {
 		if(!implicitChar || /[\w#_]/.test(implicitChar)) {
 			var cursor = editor.getCursorPos(),
-				token = editor._codeMirror.getTokenAt(cursor);
-			if (token.type !== 'comment') {
+				ctx = TokenUtils.getInitialContext(editor._codeMirror, cursor);
+			if (ctx.token.type !== 'comment') {
 				this.editor = editor;
-				this.token = token;
-				this.isFragment = token.state.localMode.helperType === 'x-shader/x-fragment';
-				this.pre = implicitChar === '#' || token.string[0] === '#';
+				this.start = ctx.token.start;
+				this.isFragment = ctx.token.state.localMode.helperType === 'x-shader/x-fragment';
+				this.pre = implicitChar === '#' || ctx.token.string[0] === '#';
+				
+				if(TokenUtils.movePrevToken(ctx)) {
+					if (ctx.token.string[0] === '.') {
+						return false;
+					}
+				}
 				return true;
 			}
 		}
@@ -80,7 +86,7 @@ define(function (require, exports, module) {
 			cursor = this.editor.getCursorPos(),
 			token = this.editor._codeMirror.getTokenAt(cursor);
 		
-		if(implicitChar === null && cursor.ch <= this.token.start) {
+		if(implicitChar === null && cursor.ch <= this.start) {
 			return null;
 		}
 		
@@ -110,7 +116,7 @@ define(function (require, exports, module) {
 	
 	GLSLHints.prototype.insertHint = function(hint) {
 		var cursor = this.editor.getCursorPos(),
-			start = {line: cursor.line, ch: this.token.start},
+			start = {line: cursor.line, ch: this.start},
 			end = cursor;
 		this.editor.document.replaceRange(hint.text(), start, end);
 		return false;
