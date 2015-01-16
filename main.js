@@ -64,6 +64,11 @@ define(function (require, exports, module) {
 		if(!implicitChar || /[\w#_]/.test(implicitChar)) {
 			var cursor = editor.getCursorPos(),
 				ctx = TokenUtils.getInitialContext(editor._codeMirror, cursor);
+			
+			if (ctx.token.type === 'number') {
+				return false;
+			}
+			
 			if (ctx.token.type !== 'comment') {
 				this.editor = editor;
 				this.start = ctx.token.start;
