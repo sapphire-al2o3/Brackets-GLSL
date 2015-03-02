@@ -6,7 +6,7 @@
   "author": "sapphire_al2o3",
   "license": "MIT",
   "engines": {
-    "brackets": ">=0.40.0"
+    "brackets": ">=1.2.0"
   },
-  "version": "1.0.3"
+  "version": "1.0.4"
 }
