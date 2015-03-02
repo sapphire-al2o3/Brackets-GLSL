@@ -15,10 +15,6 @@ define(function (require, exports, module) {
 	);
 	
 	var mode = CodeMirror.resolveMode('x-shader/x-fragment');
-	delete mode.builtin['smootstep'];
-	delete mode.keywords['sampler2DShadowconst'];
-	mode.builtin['smoothstep'] = true;
-	mode.atoms['gl_PointCoord'] = true;
 	mode.keywords['precision'] = true;
 	mode.keywords['highp'] = true;
 	mode.keywords['mediump'] = true;
