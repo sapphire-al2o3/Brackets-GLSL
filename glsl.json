@@ -122,6 +122,6 @@
 	{"name": "__LINE__"},
 	{"name": "__VERSION__"},
 	{"name": "GL_ES"},
-	{"name": "GL_FRAGMENT_QRECISION_HIGH"}
+	{"name": "GL_FRAGMENT_PRECISION_HIGH"}
 ]
 }
