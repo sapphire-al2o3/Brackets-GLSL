@@ -42,6 +42,7 @@ define(function (require, exports, module) {
 
 	function add(list, words, token, filter) {
 		for (var i = 0, n = words.length; i < n; i++) {
+			var word = words[i];
 			if (!words[i].filter || words[i].filter === filter) {
 				if (words[i].name.indexOf(token) >= 0) {
 					var $hint = $('<span>');
@@ -49,8 +50,10 @@ define(function (require, exports, module) {
 					$hint.addClass('brackets-js-hints-with-type-details');
 					$hint.data(words[i].name);
 					$hint.html(words[i].name.replace(token, '<span style="font-weight: 500;">' + token + '</span>'));
-					if (words[i].def) {
-						$('<span>' + words[i].def + '</span>').appendTo($hint).addClass('jshint-description');
+					if (word.def) {
+						for (var d of word.def.split(';')) {
+							$('<span>' + d + '</span>').appendTo($hint).addClass('jshint-description');
+						}
 					}
 					list.push($hint);
 				}
