@@ -48,7 +48,7 @@ define(function (require, exports, module) {
 					var $hint = $('<span>');
 					$hint.addClass('brackets-js-hints');
 					$hint.addClass('brackets-js-hints-with-type-details');
-					$hint.data(words[i].name);
+					$hint.data('word', words[i].name);
 					$hint.html(words[i].name.replace(token, '<span style="font-weight: 500;">' + token + '</span>'));
 					if (word.def) {
 						for (var d of word.def.split(';')) {
@@ -127,7 +127,7 @@ define(function (require, exports, module) {
 		var cursor = this.editor.getCursorPos(),
 			start = {line: cursor.line, ch: this.start},
 			end = cursor;
-		this.editor.document.replaceRange(hint.text(), start, end);
+		this.editor.document.replaceRange(hint.data('word'), start, end);
 		return false;
 	};
 	
