@@ -68,8 +68,8 @@
 	{"name": "mat2"},
 	{"name": "mat3"},
 	{"name": "mat4"},
-	{"name": "sample2D"},
-	{"name": "sampleCube"},
+	{"name": "sampler2D"},
+	{"name": "samplerCube"},
 	{"name": "struct"},
 	
 	{"name": "precision"},
